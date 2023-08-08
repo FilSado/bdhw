@@ -18,9 +18,23 @@ select nickname
 from performers 
 where nickname not like '%% %%';
 --    Название треков, которые содержат слово «Мой» или «My».
-select name
-from track
-where name like '%%My%%' or name like '%%Мой%%';
+select name from track 
+where name ilike 'my %'
+or name ilike '% my'
+or name ilike '% my %'
+or name ilike 'my'
+or name ilike '% мой'
+or name ilike '% мой %'
+or name ilike 'мой'
+or name ilike 'мой %'
+;
+
+-- Дополнительные необязательные способы реализации
+-- 1
+SELECT name from track 
+WHERE string_to_array (lower(name), ' ') 
+&& ARRAY['my %', '% my', '% my %', 'my', '% мой', '% мой %', 'мой', 'мой %']; 
+
 
 
 
